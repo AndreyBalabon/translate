@@ -1,0 +1,148 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            cursor:url("{% static 'png/ak47.png' %}"), pointer;
+        }
+        body {
+            background-color: pink;
+        }
+        .main_img {
+        position: relative;
+        left: 45%;
+        right: 45%;
+        display: flex;
+        justify-content: center;
+
+               }
+
+        #shrek {
+            float: left;
+            display: block;
+            width: 300px;
+
+        }
+
+        #dance {
+            float: right;
+            display: block;
+            width: 300px;
+
+        }
+
+        .main_block {
+            position: relative;
+            margin-center:0 auto;
+            display: flex;
+            justify-content: center;
+        }
+
+        #main_btn {
+            position: relative;
+            left: 50%;
+            display: flex;
+            justify-content: center;
+               }
+
+       .audio-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .audio-btn {
+            background-color: #4CAF50; /* Зеленый цвет */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            border-radius: 5px;
+        }
+
+        .nt-4 {
+            position: relative;
+            left: 43%;
+            right: 43%;
+            text-align: center;
+            border: 3px solid black;
+            padding: 10px;
+            margin: 10px;
+            width: 150px;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Крутой переводчик ёпта</h1>
+    <audio id="myAudio">
+        <source src="{% static 'music/caramel.mp3' %}" type="audio/mpeg">
+    </audio>
+    <div class="audio-controls">
+        <button class="audio-btn" id="playBtn">Музычка</button>
+    </div>
+
+     <script>
+        // Получаем ссылки на элементы
+        var audio = document.getElementById('myAudio');
+        var playBtn = document.getElementById('playBtn');
+
+        // Добавляем обработчик событий для кнопки
+        playBtn.addEventListener('click', function() {
+            if (audio.paused) {
+                audio.play();
+                playBtn.textContent = 'Pause Music'; // Изменяем текст кнопки
+            } else {
+                audio.pause();
+                playBtn.textContent = 'Play Music'; // Изменяем текст кнопки
+            }
+        });
+    </script>
+    <img class="main_img" src="https://i.gifer.com/origin/a4/a4ce6076f49d4f358a2f7cd5fa35c7f1_w200.webp" alt="тян"><br>
+    <form method="POST" action="{% url 'home' %}">
+        {% csrf_token %}
+        <div class="main_block">
+            <div class="col">
+                <textarea name="txt" class="form-control" placeholder="Enter your text" rows="5" required="required"></textarea>
+            </div>
+            <div class="col">
+                <select class="form-control" name="lang">
+                    <option value="ru">Russian</option>
+                    <option value="en">English</option>
+                    <option value="ar">Arabic</option>
+                    <option value="es">Spanish</option>
+                    <option value="de">German</option>
+                    <option value="uk">Ukrainian</option>
+                </select>
+            </div>
+        </div>
+        <button id="main_btn" type="submit" class="btn btn-primary nt-2">Translate</button>
+    </form>
+    <table id="result">
+        <tr>
+            <p class="nt-4">{{result}}</p>
+        </tr>
+    </table>
+
+    <div class="gifs">
+        <div id="shrek">
+            <img src="https://i.gifer.com/origin/dc/dc271b8f5006989a2358323e1cf04ac9_w200.webp" alt="шрек">
+        </div>
+        <div id="dance">
+            <img src="https://i.gifer.com/origin/38/38e41eb81a16b877dbb3128438b457c4_w200.webp" alt="танци" height="200px">
+        </div>
+    </div>
+
+</body>
+</html>
